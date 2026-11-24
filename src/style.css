@@ -582,3 +582,18 @@ footer {
     scroll-behavior: auto !important;
   }
 }
+
+
+
+/* Fix: Input text visibility */
+input,
+textarea {
+  color: var(--navy) !important;
+  caret-color: var(--emerald);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9CA3AF;
+  opacity: 1;
+}
