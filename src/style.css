@@ -308,7 +308,7 @@ footer {
 
 .join-callout {
   position: relative; overflow: hidden;
-  background: var(--navy); color: #fff;
+  background: var(--navy); color: #6c1212;
   border-radius: var(--r-lg); padding: 32px 36px;
   display: flex; justify-content: space-between; align-items: center; gap: 22px;
 }
