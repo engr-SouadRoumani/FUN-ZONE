@@ -1,69 +1,252 @@
-# FUN ZONE — منصة ألعاب الفعاليات
+# 🎮 FUN ZONE — Interactive Games Platform
 
-نسخة أولية قابلة للتشغيل لمنصة ألعاب تفاعلية. الواجهة عربية ومتجاوبة، وتدعم التسجيل باسم الفريق فقط، إنشاء الفعاليات، QR، الألعاب، حفظ النتائج، ولوحة ترتيب الفرق.
+**FUN ZONE** is an interactive web platform designed for events, group activities, and team-based competitions. It provides a collection of engaging games that allow teams to participate using a QR code or event access code, compete for points, and track their performance through a live leaderboard.
 
-## 1) المتطلبات
-- Node.js 20 أو أحدث
-- حساب Supabase مجاني
-- (اختياري للنشر) حساب GitHub وVercel
+The platform features a responsive Arabic user interface and a team-based participation system, making it suitable for educational activities, workshops, events, and entertainment.
 
-## 2) تشغيل الواجهة
+## ✨ Key Features
+
+- **Team-Based Registration:** Teams join using their team names without requiring individual player accounts.
+- **Event Management:** Create and manage events with unique access codes.
+- **QR Code Access:** Allow participants to join events quickly by scanning a QR code.
+- **Interactive Games:** Multiple game formats designed to encourage engagement and friendly competition.
+- **Live Leaderboard:** Track team rankings and performance as new results are submitted.
+- **Score Tracking:** Automatically save game attempts and team scores.
+- **Admin Dashboard:** A protected administration area for managing events.
+- **Responsive Design:** Optimized for desktop, tablet, and mobile devices.
+- **Arabic Interface:** A user-friendly Arabic interface with RTL layout support.
+
+## 🎯 Available Games
+
+The platform includes eight initial game types:
+
+- Memory Game
+- Arrange the Steps
+- Quiz Challenge
+- Crossword Puzzle
+- Logic Challenge
+- Debug the Code
+- Word Scramble
+- Spot the Difference
+
+### 🆕 New Interactive Game Modes
+
+Additional interactive experiences include:
+
+**🎡 Wheel of Fortune**
+- Randomized question selection.
+- Multiple difficulty levels.
+- Timed rounds and scoring.
+
+**🧩 Drag & Drop Challenge**
+- Interactive drag-and-drop gameplay.
+- Touch and mouse support.
+- Multiple difficulty levels.
+- Instant answer feedback.
+
+Both game modes include 10 rounds, independent content for three difficulty levels, timers, scoring, and automatic result saving.
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React, TypeScript, Vite
+- **Backend & Database:** Supabase
+- **Authentication:** Supabase Auth
+- **Database Security:** PostgreSQL Row Level Security (RLS)
+- **Styling:** CSS
+- **Deployment:** GitHub Pages / GitHub Actions
+
+## 📋 Prerequisites
+
+Before getting started, make sure you have:
+
+- Node.js 20 or later
+- npm
+- A free Supabase account
+- A GitHub account (for deployment)
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/engr-SouadRoumani/FUN-ZONE.git
+cd FUN-ZONE
+```
+
+### 2. Install Dependencies
+
 ```bash
 npm install
+```
+
+### 3. Configure Environment Variables
+
+Copy the example environment file:
+
+```bash
 cp .env.example .env
+```
+
+Add your Supabase credentials to `.env`:
+
+```env
+VITE_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
+VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+```
+
+### 4. Set Up Supabase
+
+1. Create a new project at [Supabase Dashboard](https://supabase.com/dashboard).
+2. Open the **SQL Editor**.
+3. Create a new query.
+4. Copy the complete contents of `supabase.sql`.
+5. Run the SQL script.
+6. Navigate to **Project Settings → API** and copy your Project URL and publishable/anon key.
+7. Add these values to your `.env` file.
+
+### 5. Start the Development Server
+
+```bash
 npm run dev
 ```
-افتحي الرابط الذي يظهر في الطرفية. قبل ربط Supabase ستظهر صفحة توضح أن قاعدة البيانات غير مربوطة.
 
-## 3) إعداد قاعدة البيانات
-1. أنشئي مشروعاً جديداً في https://supabase.com/dashboard
-2. من SQL Editor اختاري New query.
-3. انسخي كامل محتوى `supabase.sql` والصقيه ثم اضغطي Run.
-4. من Project Settings → API انسخي Project URL و anon/public key.
-5. ضعيهما في ملف `.env` بهذا الشكل:
-```
-VITE_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
-VITE_SUPABASE_ANON_KEY=YOUR_ANON_PUBLIC_KEY
-```
-6. أعيدي تشغيل `npm run dev` بعد حفظ `.env`.
+Open the local URL displayed in your terminal.
 
-## 4) إنشاء حساب المنظّم
-1. من Supabase → Authentication → Users أنشئي مستخدماً بالبريد وكلمة المرور.
-2. انسخي User UID.
-3. من SQL Editor نفّذي (استبدلي UUID بالمعرّف الحقيقي):
+> If Supabase is not configured, the application will display a message indicating that the database connection is missing.
+
+## 👤 Admin Account Setup
+
+To create an administrator account:
+
+1. Open **Supabase → Authentication → Users**.
+2. Create a new user using an email address and password.
+3. Copy the user's UUID.
+4. Open the SQL Editor and execute:
+
 ```sql
-insert into public.admins(user_id) values ('PUT-AUTH-USER-UUID-HERE');
+INSERT INTO public.admins (user_id)
+VALUES ('YOUR_AUTH_USER_UUID');
 ```
-4. افتحي `/admin` وسجّلي الدخول.
-5. أنشئي فعالية. سيظهر رمزها وQR عند اختيار الفعالية من قائمة فعالياتي.
 
-## 5) نشر الموقع
-- ارفعي مجلد المشروع إلى مستودع GitHub.
-- في Vercel اختاري Add New → Project ثم اربطي المستودع.
-- أضيفي متغيري البيئة `VITE_SUPABASE_URL` و`VITE_SUPABASE_ANON_KEY` في إعدادات المشروع.
-- Deploy. بعد النشر سيعمل QR على رابط الموقع الفعلي.
+5. Navigate to `/admin` in your application.
+6. Sign in using the administrator credentials.
+7. Create and manage your events.
 
-## ما تتضمنه هذه النسخة
-- إنشاء فعالية برمز انضمام مستقل.
-- تسجيل الفرق فقط ومنع تكرار الاسم ضمن الفعالية.
-- 8 أنواع ألعاب؛ أسئلة أولية قابلة للتوسيع.
-- حفظ محاولات ونتائج الفرق.
-- لوحة ترتيب تجمع أفضل نتيجة لكل فريق في كل لعبة، وتتحدث عند وصول نتائج جديدة.
-- لوحة إدارة محمية بتسجيل دخول Supabase.
+Once an event is created, its unique access code and QR code will be available in the events dashboard.
 
-## ملاحظات مهمة قبل الاستخدام في فعالية رسمية
-هذه نسخة MVP تأسيسية وليست بعد نظاماً محصناً ضد الغش. حالياً يتم احتساب نتيجة اللعبة في المتصفح ثم إرسالها إلى قاعدة البيانات؛ لذلك يمكن لمستخدم خبير التلاعب بالطلب. قبل اعتماد المسابقة على جوائز أو نتائج حساسة، ينبغي نقل التحقق من الإجابات واحتساب النقاط إلى Supabase Edge Functions أو RPC موثوق، وتقييد سياسات قراءة النتائج/الفرق، وإضافة حدود للمحاولات. كذلك واجهات إدارة الألعاب والمحتوى التفصيلية وإدارة حالات الفعالية هي مراحل التطوير التالية.
+## 🎡 Enabling Wheel & Drag-and-Drop Games
 
-## الألعاب التفاعلية الجديدة (عجلة الحظ + اسحب وأفلت)
-- **التفعيل:** نفّذي ملف `supabase-add-wheel-dragdrop.sql` مرة واحدة في SQL Editor (يضيف اللعبتين للفعاليات الحالية؛ الفعاليات الجديدة تحصل عليهما تلقائياً).
-- كل لعبة: 10 جولات، 3 مستويات صعوبة (سهل/متوسط/صعب) بمحتوى مستقل، مؤقّت، نقاط، كشف الصح والخطأ، وحفظ النتيجة في `game_attempts` وتقدّم الفريق مثل بقية الألعاب.
-- **النقاط:** ثوابتها في `src/games/kit/scoring.ts` (الأساس 50 × مضاعف المستوى + مكافأة السرعة + مكافأة السلسلة).
-- **المحتوى:** `src/games/wheel/data.ts` و`src/games/dragdrop/data.ts` (أضيفي أو عدّلي الأسئلة مباشرة).
-- **إضافة لعبة جديدة:** أنشئي `GameDef` (انظري `src/games/wheel/index.ts`) وأضيفيه إلى `src/games/registry.ts`، وأضيفي صفاً في جدول `games` بنفس الـ slug. يتولى `GameFrame` شاشة المستوى والنقاط والنتيجة والحفظ.
-- مكوّنات مشتركة في `src/games/kit/`: `GameFrame`، `AnswerOptions`، `TimerBar`، `FeedbackCard`، `Confetti`، ونظام السحب `dnd.tsx` (يعمل باللمس والفأرة).
+To enable the additional interactive games:
 
-## بنية المشروع
-- `src/App.tsx`: الصفحات وتدفق التسجيل والألعاب ولوحة النتائج والإدارة.
-- `src/style.css`: التصميم المتجاوب.
-- `supabase.sql`: الجداول، الفهارس، سياسات RLS، View الترتيب.
-- `.env.example`: إعداد الاتصال.
+1. Open the Supabase SQL Editor.
+2. Run the `supabase-add-wheel-dragdrop.sql` script once.
+3. The new games will become available for existing events. Newly created events will include them automatically.
+
+### Game Configuration
+
+| Component | Location |
+|---|---|
+| Scoring System | `src/games/kit/scoring.ts` |
+| Wheel Questions | `src/games/wheel/data.ts` |
+| Drag & Drop Content | `src/games/dragdrop/data.ts` |
+| Game Registry | `src/games/registry.ts` |
+| Shared Game Components | `src/games/kit/` |
+
+The scoring system uses a base score of 50 points, difficulty multipliers, speed bonuses, and streak bonuses.
+
+## 🌐 Deployment
+
+The project supports deployment through GitHub Pages using GitHub Actions.
+
+### GitHub Pages Deployment
+
+1. Push your project to GitHub.
+2. Open your repository's **Settings → Pages**.
+3. Set the deployment source to **GitHub Actions**.
+4. Ensure your Vite configuration contains the correct repository base path:
+
+```typescript
+base: '/FUN-ZONE/',
+```
+
+5. Push your changes to the `main` branch.
+
+GitHub Actions will automatically:
+
+- Install project dependencies.
+- Build the application.
+- Generate the production files in `dist/`.
+- Deploy the application to GitHub Pages.
+
+## 📁 Project Structure
+
+```text
+FUN-ZONE/
+│
+├── public/
+├── src/
+│   ├── games/
+│   │   ├── kit/
+│   │   ├── wheel/
+│   │   ├── dragdrop/
+│   │   └── registry.ts
+│   │
+│   ├── App.tsx
+│   └── style.css
+│
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+│
+├── .env.example
+├── supabase.sql
+├── supabase-add-wheel-dragdrop.sql
+├── package.json
+└── README.md
+```
+
+## 🔒 Security & Limitations
+
+FUN ZONE is currently an **MVP (Minimum Viable Product)** intended for prototyping, testing, and initial event usage.
+
+Some security improvements are recommended before using the platform for high-stakes competitions or prize-based events.
+
+Current limitations include:
+
+- Game scores are calculated on the client side before being submitted to the database.
+- Client-side score calculations can potentially be manipulated.
+- Additional restrictions on database access and game attempts are recommended.
+
+### Recommended Future Improvements
+
+- Move score validation and calculation to Supabase Edge Functions or secure database RPC functions.
+- Strengthen Row Level Security (RLS) policies.
+- Implement server-side answer validation.
+- Add configurable attempt limits.
+- Expand event and game content management tools.
+- Improve event lifecycle and administration controls.
+
+## 🗺️ Future Development
+
+Potential future enhancements include:
+
+- More interactive game formats.
+- Expanded question banks and difficulty levels.
+- Advanced team statistics and performance reports.
+- Improved real-time leaderboard updates.
+- Customizable event settings.
+- Enhanced administration and content management.
+
+## 🤝 Contributing
+
+Contributions, suggestions, and ideas are welcome!
+
+If you would like to improve FUN ZONE, feel free to fork the repository and submit a pull request.
+
+## 📄 License
+
+This project is currently provided for development and educational purposes. A formal license can be added when the distribution terms are defined.
+
+---
+
+**FUN ZONE — Learn, Play, Compete, and Have Fun! 🎉**
